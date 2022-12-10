@@ -15,8 +15,7 @@ struct MotorAction Motor;
 const int PWD1 = 3, PWD2 = 5, PWD3 = 6 , PWD4 = 9;
 const int MAX = 255, MIN = 0;
 
-// Functions:
-int main(void);
+// Functions:nt degree(void);
 int degree(void);
 double converter(int degree_arg);
 int x_components(double radian_x);
@@ -30,7 +29,7 @@ const int PIN1R = 2, PIN1L = 4,
           PIN4R = 12, PIN4L = 13;
 
 // String Constants:
-const String prompt;
+const String prompt = "Add the angle:";
 
 void setup() {
   // put your setup code here, to run once:
@@ -52,8 +51,18 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  Serial.println("It works");
+  int input;
+  double radian_value, Xcomp, Ycomp;
+  input = degree();
+  radian_value = radians(input);
+  Xcomp = x_components(radian_value);
+  Ycomp = y_components(radian_value);
+  motors(Xcomp, Ycomp);
+  Serial.println(Motor.motor1);
+  Serial.println(Motor.motor2);
+  Serial.println(Motor.motor3);
+  Serial.println(Motor.motor4);
+    delay(9000000);
 }
 
 // Read the input in degrees:
@@ -190,19 +199,4 @@ void motors(int xcomp, int ycomp) {
   Motor.motor2 = m[1];
   Motor.motor3 = m[2];
   Motor.motor4 = m[3];
-}
-
-int main(void) {
-  int input;
-  double radian_value, Xcomp, Ycomp;
-  input = degree();
-  radian_value = radians(input);
-  Xcomp = x_components(radian_value);
-  Ycomp = y_components(radian_value);
-  motors(Xcomp, Ycomp);
-  Serial.println(Motor.motor1);
-  Serial.println(Motor.motor2);
-  Serial.println(Motor.motor3);
-  Serial.println(Motor.motor4);
-  return 0;
 }
