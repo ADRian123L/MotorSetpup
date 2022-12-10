@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <math.h>
 
 // Struct:
 struct MotorAction {
