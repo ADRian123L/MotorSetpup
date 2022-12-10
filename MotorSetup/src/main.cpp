@@ -29,7 +29,7 @@ const int PIN1R = 2, PIN1L = 4,
           PIN4R = 12, PIN4L = 13;
 
 // String Constants:
-const String prompt = "Add the angle:";
+const String prompt = "Add the angle: ";
 
 void setup() {
   // put your setup code here, to run once:
@@ -51,18 +51,24 @@ void setup() {
 }
 
 void loop() {
+  // Empty var:
   int input;
   double radian_value, Xcomp, Ycomp;
+  // Prompts for degrees:
   input = degree();
+  // Converts to radians:
   radian_value = radians(input);
+  // Converts into (x - y) components:
   Xcomp = x_components(radian_value);
   Ycomp = y_components(radian_value);
+  // Calculates the power and direction:
   motors(Xcomp, Ycomp);
+  // Prints the values:
   Serial.println(Motor.motor1);
   Serial.println(Motor.motor2);
   Serial.println(Motor.motor3);
   Serial.println(Motor.motor4);
-    delay(9000000);
+  delay(9000000);
 }
 
 // Read the input in degrees:
@@ -140,58 +146,58 @@ void motors(int xcomp, int ycomp) {
   int m[4];
 
   // Determines the motor power and direction:
-  if (xcomp == 1 && ycomp == 1){
+  if (xcomp == 1 && ycomp == 0) {
+      m[0] = -1;
+      m[1] = 1;
+      m[2] = -1;
+      m[3] = 1;
+  }
+  else if (xcomp == 1 && ycomp == 1) {
+     m[0] = 0;
+     m[1] = 1;
+     m[2] = 0;
+     m[3] = 1;
+  }
+  else if (xcomp == 0 && ycomp == 1) {
+    m[0] = 1;
+    m[1] = 1;
+    m[2] = 1;
+    m[3] = 1;
+    }
+  else if (xcomp == -1 && ycomp == 1) {
+      /* code */
       m[0] = 1;
+      m[1] = 0;
+      m[2] = 1;
+      m[3] = 0;
+    }
+  else if (xcomp == -1 && ycomp == 0) {
+      /* code */
+      m[0] = 1;
+      m[1] = -1;
+      m[2] = 1;
+      m[3] = -1;  
+    }
+  else if (xcomp == -1 && ycomp == -1) {
+      /* code */
+      m[0] = -1;
       m[1] = 0;
       m[2] = -1;
       m[3] = 0;
-  }
-  else if (xcomp == 0 && ycomp == 1){
-     m[0] = 1;
-     m[1] = 1;
-     m[2] = -1;
-     m[3] = -1;
-  }
-  else if (xcomp == 1 && ycomp == 0) {
-    m[0] = 1;
-    m[1] = -1;
-    m[2] = -1;
-    m[3] = 1;
     }
-  else if (xcomp == -1 && ycomp == 0){
+  else if (xcomp == 0 && ycomp == -1) {
       /* code */
       m[0] = -1;
-      m[1] = 1;
-      m[2] = 1;
-      m[3] = -1;
-    }
-  else if (xcomp == -1 && ycomp == -1){
-      /* code */
-      m[0] = -1;
-      m[1] = 0;
-      m[2] = 1;
-      m[3] = 0;  
-    }
-  else if (xcomp == -1 && ycomp == 1){
-      /* code */
-      m[0] = 0;
-      m[1] = 1;
-      m[2] = 0;
-      m[3] = -1;
-    }
-  else if (xcomp == 1 && ycomp == -1){
-      /* code */
-      m[0] = 0;
       m[1] = -1;
-      m[2] = 0;
-      m[3] = 1;
+      m[2] = -1;
+      m[3] = -1;
     }
-  else if (xcomp == 0 && ycomp == -1){
+  else if (xcomp == 1 && ycomp == -1) {
     /* code */
     m[0] = -1;
-    m[1] = -1;
-    m[2] = 1;
-    m[3] = 1;  
+    m[1] = 0;
+    m[2] = -1;
+    m[3] = 0;  
   }
 
   // Assign the attributes:
@@ -199,4 +205,4 @@ void motors(int xcomp, int ycomp) {
   Motor.motor2 = m[1];
   Motor.motor3 = m[2];
   Motor.motor4 = m[3];
-}
+  }
