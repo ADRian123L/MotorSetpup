@@ -131,7 +131,7 @@ int degree(void) {
 // Convert to radians: 
 double converter(int degree_arg) {
   double radians;
-  // Converts to radians:asdaa
+  // Converts to radians:
   radians = degree_arg / (PI / 180);
   return radians;
 }
