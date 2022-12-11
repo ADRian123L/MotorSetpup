@@ -79,8 +79,13 @@ void setup() {
 
 }
 
+
+
+  
+  
 void loop() {
 
+  Serial.println("it works");
   // Empty var:
   int input, return1, return2, return3, return4;
   double radian_value, Xcomp, Ycomp;
@@ -112,6 +117,7 @@ void loop() {
   
   delay(9000000);
 }
+
 
 // Read the input in degrees:
 int degree(void) {
@@ -177,6 +183,7 @@ int y_components(double radian_y) {
     }
     else {
         sign_y = -1;
+
     }
 
     return sign_y;
@@ -283,9 +290,4 @@ int motor_control(MotorAttribute motor_name) {
 
     return -1;
 
-  }
-
-  int main(void) {
-
-    return 0;
   }
