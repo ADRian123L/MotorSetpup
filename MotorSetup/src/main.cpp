@@ -1,13 +1,13 @@
 #include <Arduino.h>
-#include <math.h>
-
 // Struct:
 struct MotorAttribute {
   int pin_1,
       pin_2,
-      pin_pbw,
-      velocity,
-      power_supply;
+      pin_pbw;
+      
+  
+   double   velocity,
+            power_supply;
 
 };
 
@@ -33,11 +33,11 @@ const int PIN1R = 30, PIN1L = 31,
 // Functions:
 int degree(void);
 double converter(int degree_arg);
-int x_components(double radian_x);
-int y_components(double radian_y);
+double x_components(double radian_x);
+double y_components(double radian_y);
 void motors(int xcomp, int ycomp);
 void set_power(MotorAttribute wheel_name);
-int motor_control(MotorAttribute motor_name);
+double motor_control(MotorAttribute motor_name);
 
 // String Constants:
 const String prompt = "Add the angle: ";
@@ -84,13 +84,14 @@ void loop() {
 
   // Empty var:
   int input, return1, return2, return3, return4;
-  double radian_value, Xcomp, Ycomp;
+  float radian_value;
+  double Xcomp, Ycomp;
 
   // Prompts for degrees:
   input = 30;
 
   // Converts to radians:
-  radian_value = radians(input);
+  radian_value = converter(input);
 
   // Converts into (x - y) components:
   Xcomp = x_components(radian_value);
@@ -137,32 +138,33 @@ int degree(void) {
 // Convert to radians: 
 double converter(int degree_arg) {
   double radians;
-  int new_degree;
-  new_degree = degree_arg + 45;
+  int new_degree = degree_arg + 45;
   // Converts to radians:
   radians =  new_degree * (PI / 180);
   return radians;
 }
 
 // Converts the radians into its x-component:
-int x_components(double radian_x) {
+double x_components(double radian_x) {
 
     // Empty variables:
     
-    double value_x;
+    double value_x = cos(radian_x);
 
     // Finds the component:
-    value_x = cos(radian_x);
+    
+    Serial.print("it is");
+    Serial.println(value_x);
     
 
     return value_x;
 }
 
 // Converts the radians into its y-component:
-int y_components(double radian_y) {
+double y_components(double radian_y) {
 
     // Empty variables:
-    int sign_y;
+    
     double value_y;
 
     // Finds the component:
@@ -173,7 +175,7 @@ int y_components(double radian_y) {
 }
 
 // Control the motors:
-void motors(int xcomp, int ycomp) {
+void motors(double xcomp, double ycomp) {
   // Empty int variable:
  
   // Assign the attributes:
@@ -189,7 +191,7 @@ void set_power(MotorAttribute wheel_name) {
 
 }
 
-int motor_control(MotorAttribute motor_name) {
+double motor_control(MotorAttribute motor_name) {
 
     motor_name.power_supply = abs(motor_name.velocity * 255);
     
