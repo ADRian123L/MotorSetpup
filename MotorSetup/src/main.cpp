@@ -80,7 +80,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("it works");
 
   // Empty var:
   int input, return1, return2, return3, return4;
