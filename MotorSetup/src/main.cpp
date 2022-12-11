@@ -80,13 +80,14 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("it works");
 
   // Empty var:
   int input, return1, return2, return3, return4;
   double radian_value, Xcomp, Ycomp;
 
   // Prompts for degrees:
-  input = 90;
+  input = 30;
 
   // Converts to radians:
   radian_value = radians(input);
@@ -254,13 +255,13 @@ int motor_control(MotorAttribute motor_name) {
       digitalWrite(motor_name.pin_1, LOW);
       digitalWrite(motor_name.pin_2, LOW);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
-      return 0; 
+      return motor_name.power_supply; 
     }
     else {
       digitalWrite(motor_name.pin_1, LOW);
       digitalWrite(motor_name.pin_2, HIGH);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
-      return 0;
+      return motor_name.power_supply;
 
     }
 
