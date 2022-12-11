@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <math.h>
 
 // Struct:
 struct MotorAttribute {
@@ -31,7 +32,6 @@ const int PIN1R = 30, PIN1L = 31,
 
 // Functions:
 int degree(void);
-int main(void);
 double converter(int degree_arg);
 int x_components(double radian_x);
 int y_components(double radian_y);
@@ -82,7 +82,6 @@ void setup() {
 
 void loop() {
 
-Serial.println("it works");
   // Empty var:
   int input, return1, return2, return3, return4;
   double radian_value, Xcomp, Ycomp;
@@ -96,6 +95,7 @@ Serial.println("it works");
   // Converts into (x - y) components:
   Xcomp = x_components(radian_value);
   Ycomp = y_components(radian_value);
+  
 
   // Calculates the power and direction:
   motors(Xcomp, Ycomp);
@@ -107,11 +107,15 @@ Serial.println("it works");
   return4  = motor_control(Motor4);
 
   // Prints:
+  Serial.println(radian_value);
+  Serial.println(Xcomp);
+  Serial.println(Ycomp);
   Serial.println(return1);
   Serial.println(return2);
   Serial.println(return3);
   Serial.println(return4);
   
+  Serial.println(Motor1.velocity);
   delay(9000000);
 }
 
@@ -134,7 +138,7 @@ int degree(void) {
 double converter(int degree_arg) {
   double radians;
   // Converts to radians:
-  radians = degree_arg / (PI / 180);
+  radians = degree_arg * (PI / 180);
   return radians;
 }
 
@@ -142,7 +146,7 @@ double converter(int degree_arg) {
 int x_components(double radian_x) {
 
     // Empty variables:
-    int sign_x;
+    
     double value_x;
 
     // Finds the component:
@@ -169,64 +173,7 @@ int y_components(double radian_y) {
 // Control the motors:
 void motors(int xcomp, int ycomp) {
   // Empty int variable:
-  //int m[4];
-
-  // Determines the motor power and direction:
-  /*
-  if (xcomp == 1 && ycomp == 0) {
-      m[0] = -1;
-      m[1] = 1;
-      m[2] = -1;
-      m[3] = 1;
-  }
-  else if (xcomp == 1 && ycomp == 1) {
-     m[0] = 0;
-     m[1] = 1;
-     m[2] = 0;
-     m[3] = 1;
-  }
-  else if (xcomp == 0 && ycomp == 1) {
-    m[0] = 1;
-    m[1] = 1;
-    m[2] = 1;
-    m[3] = 1;
-    }
-  else if (xcomp == -1 && ycomp == 1) {
-      
-      m[0] = 1;
-      m[1] = 0;
-      m[2] = 1;
-      m[3] = 0;
-    }
-  else if (xcomp == -1 && ycomp == 0) {
-      
-      m[0] = 1;
-      m[1] = -1;
-      m[2] = 1;
-      m[3] = -1;  
-    }
-  else if (xcomp == -1 && ycomp == -1) {
-      
-      m[0] = -1;
-      m[1] = 0;
-      m[2] = -1;
-      m[3] = 0;
-    }
-  else if (xcomp == 0 && ycomp == -1) {
-      
-      m[0] = -1;
-      m[1] = -1;
-      m[2] = -1;
-      m[3] = -1;
-    }
-  else if (xcomp == 1 && ycomp == -1) {
-    
-    m[0] = -1;
-    m[1] = 0;
-    m[2] = -1;
-    m[3] = 0;  
-  }
-*/
+ 
   // Assign the attributes:
   Motor1.velocity = 0 - xcomp;
   Motor2.velocity = ycomp;
@@ -242,7 +189,7 @@ void set_power(MotorAttribute wheel_name) {
 
 int motor_control(MotorAttribute motor_name) {
 
-    set_power(motor_name);
+    motor_name.power_supply = abs(motor_name.velocity * 255);
     
     if (motor_name.velocity > 0) {
 
@@ -268,9 +215,4 @@ int motor_control(MotorAttribute motor_name) {
 
     return -1;
 
-  }
-
-  int main(void) {
-
-    return 0;
   }
