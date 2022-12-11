@@ -1,38 +1,65 @@
 #include <Arduino.h>
 
 // Struct:
-struct MotorAction {
-  int motor1,
-      motor2,
-      motor3,
-      motor4;
+
+struct MotorAttribute {
+  int pin_1,
+      pin_2,
+      pin_pbw,
+      velocity;
+
 };
 
+
 // Struct:
-struct MotorAction Motor;
+struct MotorAttribute Motor1;
+struct MotorAttribute Motor2;
+struct MotorAttribute Motor3;
+struct MotorAttribute Motor4;
+
 
 // PWD pins constants:
-const int PWD1 = 3, PWD2 = 5, PWD3 = 6 , PWD4 = 9;
+const int PWD1 = 3, PWD2 = 5, PWD4 = 11;
 const int MAX = 255, MIN = 0;
+#define PWD3 6
 
-// Functions:nt degree(void);
+// Direction pins:
+const int PIN1R = 4, PIN1L = 7,
+          PIN2R = 13, PIN2L = 12,
+          PIN3R = 8, PIN3L = 9,
+          PIN4R = 10, PIN4L = 2;
+
+// Functions: degree(void);
 int degree(void);
 double converter(int degree_arg);
 int x_components(double radian_x);
 int y_components(double radian_y);
 void motors(int xcomp, int ycomp);
 
-// Direction pins:
-const int PIN1R = 2, PIN1L = 4,
-          PIN2R = 7, PIN2L = 8,
-          PIN3R = 10, PIN3L = 11,
-          PIN4R = 12, PIN4L = 13;
+
 
 // String Constants:
 const String prompt = "Add the angle: ";
 
 void setup() {
   // put your setup code here, to run once:
+//assign pins
+Motor1.pin_1 = PIN1L;
+Motor1.pin_2 = PIN1R;
+Motor1.pin_pbw = PWD1;
+
+Motor2.pin_1 = PIN2L;
+Motor2.pin_2 = PIN2R;
+Motor2.pin_pbw = PWD2;
+
+Motor3.pin_1 = PIN3L;
+Motor3.pin_2 = PIN3R;
+Motor3.pin_pbw = PWD3;
+
+Motor4.pin_1 = PIN4L;
+Motor4.pin_2 = PIN4R;
+Motor4.pin_pbw = PWD4;
+
   pinMode(PWD1, OUTPUT);
   pinMode(PWD2, OUTPUT);
   pinMode(PWD3, OUTPUT);
@@ -64,10 +91,11 @@ void loop() {
   // Calculates the power and direction:
   motors(Xcomp, Ycomp);
   // Prints the values:
-  Serial.println(Motor.motor1);
-  Serial.println(Motor.motor2);
-  Serial.println(Motor.motor3);
-  Serial.println(Motor.motor4);
+  Serial.println(Motor1.velocity);
+  Serial.println(Motor2.velocity);
+  Serial.println(Motor3.velocity);
+  Serial.println(Motor4.velocity);
+  
   delay(9000000);
 }
 
@@ -201,8 +229,16 @@ void motors(int xcomp, int ycomp) {
   }
 
   // Assign the attributes:
-  Motor.motor1 = m[0];
-  Motor.motor2 = m[1];
-  Motor.motor3 = m[2];
-  Motor.motor4 = m[3];
+  Motor1.velocity = m[0];
+  Motor2.velocity = m[1];
+  Motor3.velocity= m[2];
+  Motor4.velocity = m[3];
+  }
+
+  int motorcontrol(int pin_s, int motor_num){
+    
+
+
+    return 0;
+
   }
