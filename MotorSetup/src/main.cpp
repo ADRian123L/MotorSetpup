@@ -31,6 +31,7 @@ const int PIN1R = 30, PIN1L = 31,
 
 // Functions:
 int degree(void);
+int main(void);
 double converter(int degree_arg);
 int x_components(double radian_x);
 int y_components(double radian_y);
@@ -80,7 +81,6 @@ void setup() {
 }
 
 void loop() {
-
 
 Serial.println("it works");
   // Empty var:
@@ -169,7 +169,7 @@ int y_components(double radian_y) {
 // Control the motors:
 void motors(int xcomp, int ycomp) {
   // Empty int variable:
-  int m[4];
+  //int m[4];
 
   // Determines the motor power and direction:
   /*
