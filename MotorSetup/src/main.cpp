@@ -104,7 +104,7 @@ void loop() {
   return1 = motor_control(Motor1);
   return2 = motor_control(Motor2);
   return3 = motor_control(Motor3);
-  return4  = motor_control(Motor4);
+  return4 = motor_control(Motor4);
 
   // Prints:
   Serial.println(radian_value);
@@ -130,15 +130,17 @@ int degree(void) {
     // Delays.
   }
   // Saves the message:
-  get_degree = Serial.parseInt() + 45;
+  get_degree = Serial.parseInt();
    return get_degree;
 }
 
 // Convert to radians: 
 double converter(int degree_arg) {
   double radians;
+  int new_degree;
+  new_degree = degree_arg + 45;
   // Converts to radians:
-  radians = degree_arg * (PI / 180);
+  radians =  new_degree * (PI / 180);
   return radians;
 }
 
@@ -199,7 +201,7 @@ int motor_control(MotorAttribute motor_name) {
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
       return motor_name.power_supply;
     }
-    else if (motor_name.velocity = 0) {
+    else if (motor_name.velocity == 0) {
       digitalWrite(motor_name.pin_1, LOW);
       digitalWrite(motor_name.pin_2, LOW);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
