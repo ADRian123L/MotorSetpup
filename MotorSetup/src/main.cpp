@@ -35,7 +35,7 @@ int degree(void);
 double converter(int degree_arg);
 double x_components(double radian_x);
 double y_components(double radian_y);
-void motors(int xcomp, int ycomp);
+void motors(double xcomp, double ycomp);
 void set_power(MotorAttribute wheel_name);
 double motor_control(MotorAttribute motor_name);
 
