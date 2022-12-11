@@ -20,15 +20,15 @@ struct MotorAttribute Motor1,
 
 
 // PWD pins constants:
-const int PWD1 = 2, PWD2 = 3, 
-          PWD4 = 4, PWD3 = 5;
+const int PWD1 = 3, PWD2 = 5, 
+          PWD4 = 6, PWD3 = 11;
 const int MAX = 255, MIN = 0;
 
 // Direction pins:
-const int PIN1R = 30, PIN1L = 31,
-          PIN2R = 32, PIN2L = 33,
-          PIN3R = 34, PIN3L = 35,
-          PIN4R = 36, PIN4L = 37;
+const int PIN1R = 4, PIN1L = 7,
+          PIN2R = 13, PIN2L = 12,
+          PIN3R = 8, PIN3L = 9,
+          PIN4R = 10, PIN4L = 2;
 
 // Functions:
 int degree(void);
