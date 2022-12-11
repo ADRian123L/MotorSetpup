@@ -1,7 +1,6 @@
 #include <Arduino.h>
 
 // Struct:
-
 struct MotorAttribute {
   int pin_1,
       pin_2,
@@ -10,7 +9,6 @@ struct MotorAttribute {
       power_supply;
 
 };
-
 
 // Struct:
 struct MotorAttribute Motor1, 
@@ -21,7 +19,8 @@ struct MotorAttribute Motor1,
 
 
 // PWD pins constants:
-const int PWD1 = 3, PWD2 = 5, PWD4 = 11, PWD3 = 6;
+const int PWD1 = 3, PWD2 = 5, 
+          PWD4 = 11, PWD3 = 6;
 const int MAX = 255, MIN = 0;
 
 // Direction pins:
@@ -30,38 +29,38 @@ const int PIN1R = 4, PIN1L = 7,
           PIN3R = 8, PIN3L = 9,
           PIN4R = 10, PIN4L = 2;
 
-// Functions: degree(void);
+// Functions:
 int degree(void);
 double converter(int degree_arg);
 int x_components(double radian_x);
 int y_components(double radian_y);
 void motors(int xcomp, int ycomp);
+void set_power(MotorAttribute wheel_name);
 int motor_control(MotorAttribute motor_name);
-
-
 
 // String Constants:
 const String prompt = "Add the angle: ";
 
 void setup() {
-  // put your setup code here, to run once:
-//assign pins
-Motor1.pin_1 = PIN1L;
-Motor1.pin_2 = PIN1R;
-Motor1.pin_pbw = PWD1;
+  
+  //Assign each object its pins:
+  Motor1.pin_1 = PIN1L;
+  Motor1.pin_2 = PIN1R;
+  Motor1.pin_pbw = PWD1;
 
-Motor2.pin_1 = PIN2L;
-Motor2.pin_2 = PIN2R;
-Motor2.pin_pbw = PWD2;
+  Motor2.pin_1 = PIN2L;
+  Motor2.pin_2 = PIN2R;
+  Motor2.pin_pbw = PWD2;
 
-Motor3.pin_1 = PIN3L;
-Motor3.pin_2 = PIN3R;
-Motor3.pin_pbw = PWD3;
+  Motor3.pin_1 = PIN3L;
+  Motor3.pin_2 = PIN3R;
+  Motor3.pin_pbw = PWD3;
 
-Motor4.pin_1 = PIN4L;
-Motor4.pin_2 = PIN4R;
-Motor4.pin_pbw = PWD4;
+  Motor4.pin_1 = PIN4L;
+  Motor4.pin_2 = PIN4R;
+  Motor4.pin_pbw = PWD4;
 
+ // Pins type:
   pinMode(PWD1, OUTPUT);
   pinMode(PWD2, OUTPUT);
   pinMode(PWD3, OUTPUT);
@@ -75,11 +74,13 @@ Motor4.pin_pbw = PWD4;
   pinMode(PIN3L, OUTPUT);
   pinMode(PIN4L, OUTPUT);
 
+  // Start communication:
   Serial.begin(9600);
 
 }
 
 void loop() {
+
   // Empty var:
   int input, return1, return2, return3, return4;
   double radian_value, Xcomp, Ycomp;
@@ -104,12 +105,10 @@ void loop() {
   return4  = motor_control(Motor4);
 
   // Prints:
-
   Serial.println(return1);
   Serial.println(return2);
   Serial.println(return3);
   Serial.println(return4);
- 
   
   delay(9000000);
 }
@@ -258,7 +257,7 @@ void set_power(MotorAttribute wheel_name) {
 
 int motor_control(MotorAttribute motor_name) {
 
-    motor_name.power_supply = abs(motor_name.velocity * 255);
+    set_power(motor_name);
     
     switch (motor_name.velocity) {
 
@@ -266,22 +265,19 @@ int motor_control(MotorAttribute motor_name) {
       digitalWrite(motor_name.pin_1, HIGH);
       digitalWrite(motor_name.pin_2, LOW);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
-      return motor_name.velocity;
-      break;
+      return 0;
     
     case 0:
       digitalWrite(motor_name.pin_1, LOW);
       digitalWrite(motor_name.pin_2, LOW);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
-      return 1; 
-      break;
+      return 0; 
 
     case -1:
       digitalWrite(motor_name.pin_1, LOW);
       digitalWrite(motor_name.pin_2, HIGH);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
-      return 2;
-      break;
+      return 0;
 
     }
 
