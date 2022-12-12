@@ -4,8 +4,8 @@ Pins numbers:
     Motor_1:
         Pbw = 3
         direction pins:
-            counterclockwise = 7
-            clockwise = 4
+            counterclockwise = 4
+            clockwise = 7
 
 Pins numbers:
     Motor_2:
