@@ -25,8 +25,8 @@ const int PWD1 = 3, PWD2 = 5,
 const int MAX = 255, MIN = 0;
 
 // Direction pins:
-const int PIN1R = 7, PIN1L = 4,
-          PIN2R = 13, PIN2L = 12,
+const int PIN1R = 4, PIN1L = 7,
+          PIN2R = 12, PIN2L = 13,
           PIN3R = 8, PIN3L = 9,
           PIN4R = 10, PIN4L = 2;
 
@@ -88,7 +88,7 @@ void loop() {
   double Xcomp, Ycomp;
 
   // Prompts for degrees:
-  input = 45;
+  input = 90;
 
   // Converts to radians:
   radian_value = converter(input);
@@ -169,7 +169,6 @@ double y_components(double radian_y) {
 
     // Finds the component:
     value_y = sin(radian_y);
-    
 
     return value_y;
 }
