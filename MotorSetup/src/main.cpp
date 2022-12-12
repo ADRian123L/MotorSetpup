@@ -45,21 +45,21 @@ const String prompt = "Add the angle: ";
 void setup() {
   
   //Assign each object its pins:
-  Motor1.pin_1 = PIN1L;
-  Motor1.pin_2 = PIN1R;
-  Motor1.pin_pbw = PWD1;
+  Motor2.pin_1 = PIN1L;
+  Motor2.pin_2 = PIN1R;
+  Motor2.pin_pbw = PWD1;
 
-  Motor2.pin_1 = PIN2L;
-  Motor2.pin_2 = PIN2R;
-  Motor2.pin_pbw = PWD2;
+  Motor1.pin_1 = PIN2L;
+  Motor1.pin_2 = PIN2R;
+  Motor1.pin_pbw = PWD2;
 
-  Motor3.pin_1 = PIN3L;
-  Motor3.pin_2 = PIN3R;
-  Motor3.pin_pbw = PWD3;
+  Motor4.pin_1 = PIN3L;
+  Motor4.pin_2 = PIN3R;
+  Motor4.pin_pbw = PWD3;
 
-  Motor4.pin_1 = PIN4L;
-  Motor4.pin_2 = PIN4R;
-  Motor4.pin_pbw = PWD4;
+  Motor3.pin_1 = PIN4L;
+  Motor3.pin_2 = PIN4R;
+  Motor3.pin_pbw = PWD4;
 
  // Pins type:
   pinMode(PWD1, OUTPUT);
