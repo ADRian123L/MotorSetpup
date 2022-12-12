@@ -80,8 +80,13 @@ void setup() {
 
 }
 
+
+
+  
+  
 void loop() {
 
+  Serial.println("it works");
   // Empty var:
   int input, return1, return2, return3, return4;
   float radian_value;
@@ -119,6 +124,7 @@ void loop() {
   Serial.println(Motor1.velocity);
   delay(9000000);
 }
+
 
 // Read the input in degrees:
 int degree(void) {
@@ -168,7 +174,9 @@ double y_components(double radian_y) {
     double value_y;
 
     // Finds the component:
+
     value_y = sin(radian_y);
+
 
     return value_y;
 }
