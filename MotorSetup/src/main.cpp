@@ -146,16 +146,9 @@ double converter(int degree_arg) {
 
 // Converts the radians into its x-component:
 double x_components(double radian_x) {
-
-    // Empty variables:
     
-    double value_x = cos(radian_x);
-
     // Finds the component:
-    
-    Serial.print("it is");
-    Serial.println(value_x);
-    
+    double value_x = cos(radian_x);
 
     return value_x;
 }
@@ -164,12 +157,10 @@ double x_components(double radian_x) {
 double y_components(double radian_y) {
 
     // Empty variables:
-    
     double value_y;
 
     // Finds the component:
     value_y = sin(radian_y);
-    
 
     return value_y;
 }
@@ -197,7 +188,6 @@ double motor_control(MotorAttribute motor_name) {
     
     if (motor_name.velocity > 0) {
 
-    
       digitalWrite(motor_name.pin_1, HIGH);
       digitalWrite(motor_name.pin_2, LOW);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
