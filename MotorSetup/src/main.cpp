@@ -80,10 +80,6 @@ void setup() {
 
 }
 
-
-
-  
-  
 void loop() {
 
   Serial.println("it works");
