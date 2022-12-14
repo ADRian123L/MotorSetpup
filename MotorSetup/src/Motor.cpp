@@ -6,13 +6,13 @@
     Then with a method the vehicle's speed and direction can be changed.
 */
 
-class Motor {
+class Vehicle {
 
 private:
 
 public:
 
-    double velocity;
+    double velocity; 
     
 
 
