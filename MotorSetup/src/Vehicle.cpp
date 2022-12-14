@@ -17,3 +17,7 @@ public:
 
 
 };
+
+
+// Create an object:
+Vehicle robot;
