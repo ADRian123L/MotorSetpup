@@ -97,7 +97,7 @@ void loop() {
   double X_comp, Y_comp;
 
   // Prompts for degrees:
-  degree_input = count;
+  degree_input = 90;
   speed_percent = 50;
 
   // Prints the motors' properties:
@@ -122,9 +122,9 @@ void loop() {
   motor_control(Motor4);
 
   Serial.println(count);
-  count = count + 2;
+  //count = count + 2;
 
-  delay(1);
+  delay(9000000);
 }
 
 // Read the degree_input in degrees:
