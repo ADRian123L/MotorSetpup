@@ -9,6 +9,8 @@ struct MotorAttribute {
   // Speed attribute:
    double  velocity,
           power_supply;
+  // the motor's number
+  int number;
 
 };
 
@@ -69,6 +71,11 @@ void setup() {
   Motor4.pin_2 = PIN4R;
   Motor4.pin_pbw = PWD4;
 
+ // the motor's number
+ Motor1.number = 1;
+ Motor2.number = 2;
+ Motor3.number = 3;
+ Motor4.number = 4;
 
  // Pins type:
   pinMode(PWD1, OUTPUT);
@@ -195,6 +202,10 @@ void motors(double xcomp, double ycomp) {
 void motor_control(MotorAttribute motor_name) {
     // Assigns the power to the object:
     motor_name.power_supply = abs(motor_name.velocity * current_speed);
+    // looking for the specific motor
+    if (motor_name.number == 3) {
+     motor_name.power_supply =  motor_name.power_supply * 2;
+    }
     // Runs the motors:
     if (motor_name.velocity > 0) {
       digitalWrite(motor_name.pin_1, HIGH);
