@@ -2,28 +2,23 @@ This file contains the program's documentation.
 
 Pins numbers:
     Motor_1:
-        Pbw = 3
-        Direction pins:
-            counterclockwise = 4
-            clockwise = 7
+        PMW1 = 2 // forward
+        PMW2 = 3 // back
 
 Pins numbers:
     Motor_2:
-        Pbw = 5
-        Direction pins:
-            counterclockwise = 13
-            clockwise = 12
-
+        PMW1 = 4 // back
+        PMW2 = 5 // forward
 Pins numbers:
     Motor_3:
-        Pbw = 6
-        Direction pins:
-            counterclockwise = 9
-            clockwise = 8
+        PMW1 = 6 // back
+        PMW2 = 7 // forward
 
 Pins numbers:
     Motor_4:
-        Pbw = 11
-        Direction pins:
-            counterclockwise = 2
-            clockwise = 10
+        PMW1 = 8 // Back 
+        PMW2 = 9 // Forwards
+
+H-Bridges:
+    OUT_PUT_pin = 22
+        

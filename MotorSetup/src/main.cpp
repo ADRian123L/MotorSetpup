@@ -1,6 +1,7 @@
 #include <Arduino.h>
+#include <IRremote.h>
 
-// Struct:
+// Structs:
 struct MotorAttribute {
   // Pins attribute:
   int pin_1,
@@ -12,6 +13,13 @@ struct MotorAttribute {
   // the motor's number
   int number;
 
+};
+
+struct Movement {
+  // The angle:
+  int angle;
+  // The speed:
+  double speed;
 };
 
 // Initialize four objects:
@@ -27,7 +35,12 @@ const int PWD1 = 3, PWD2 = 5,
 const int MAX = 255;
 // Varying speed:
 int current_speed;
-
+// IR sensor:
+const int IR_PIN = 0;
+// IR sensor object:
+IRrecv irrecv(IR_PIN);
+// IR function:
+decode_results results;
 
 // Direction pins:
 const int PIN1R = 7, PIN1L = 4,
@@ -47,13 +60,17 @@ double y_components(double radian_y);
 void motors(double xcomp, double ycomp);
 void motor_control(MotorAttribute motor_name);
 void speed(double percentage);
+void IR_info(void);
+void circle_motion(void);
+struct Movement movement;
+
 
 // String Constants:
 const String prompt = "Add the angle: ",
              prompt2 = "Add speed level: ";
 
 void setup() {
-  
+
   //Assign each object its pins:
   Motor1.pin_1 = PIN1L;
   Motor1.pin_2 = PIN1R;
@@ -94,22 +111,28 @@ void setup() {
   // Start communication:
   Serial.begin(9600);
 
+  // Start the IR sensor:
+  irrecv.enableIRIn();
+
+
 }
 
 void loop() {
+
 
   // Empty var:
   int degree_input, speed_percent;
   float radian_value;
   double X_comp, Y_comp;
-
+  // Call circle motion:
+  circle_motion();
+  // Call the IR function:
+  IR_info();
   // Prompts for degrees:
   degree_input = 90;
+  Serial.print("Angle:");
+  Serial.println(movement.angle);
   speed_percent = 50;
-
-  // Prints the motors' properties:
-  Serial.print("Angle: ");
-  Serial.println(count);
 
   // Sets the speed:
   speed(speed_percent);
@@ -127,11 +150,17 @@ void loop() {
   motor_control(Motor2);
   motor_control(Motor3);
   motor_control(Motor4);
+  delay(9000000000);
 
-  Serial.println(count);
-  //count = count + 2;
+}
+// The function returns data from the IR sensor:
+void IR_info(void) {
+  if (irrecv.decode(&results)) {
+    // Prints the results:
+    Serial.println(results.value);
+    irrecv.resume();
+  }
 
-  delay(9000000);
 }
 
 // Read the degree_input in degrees:
@@ -222,7 +251,9 @@ void motor_control(MotorAttribute motor_name) {
       digitalWrite(motor_name.pin_2, HIGH);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
     }
+    Serial.println(motor_name.number);
     Serial.println(motor_name.velocity);
+    Serial.println(motor_name.power_supply);
   }
   
 void speed(double percentage) {
@@ -232,4 +263,20 @@ void speed(double percentage) {
   decimal = percentage / 100;
   // Assigns the value:
   current_speed = round(decimal * MAX);
+}
+
+// The function makes the robot move in a circle:
+void circle_motion(void) {
+  // If the angle is less than 0, it is reset to 0
+  if (movement.angle < 0) {
+    movement.angle = 0;
+  }
+  // If the angle is greater than or equal to 360, it is reset to 0
+  else if (movement.angle >= 360) {
+    movement.angle = 0;
+  }
+  // Otherwise, the angle is incremented by 1
+  else {
+    movement.angle++;
+  }
 }
