@@ -92,10 +92,10 @@ void direction(float radian)
     /// @param radian The angle of the motors.
 
     // Set the direction of the motors:
-    MotorOne.direction = (-cos(radian + ADDER));
-    MotorTwo.direction = (sin(radian + ADDER));
-    MotorThree.direction = (-cos(radian + ADDER));
-    MotorFour.direction = (sin(radian + ADDER));
+    MotorOne.direction = (float) (-cos(radian + ADDER));
+    MotorTwo.direction = (float) (sin(radian + ADDER));
+    MotorThree.direction = (float) (-cos(radian + ADDER));
+    MotorFour.direction = (float) (sin(radian + ADDER));
 }
 
 void movement(float speed)
