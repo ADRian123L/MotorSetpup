@@ -4,14 +4,15 @@
     Author: Adrian Lozada & Jiahui Dang
         
 */
+    /// @file main.cpp
 
 #include <Arduino.h>
 #include <math.h>
 #include <stdio.h>
 
 // Macros:
-#define MAX 255;
-#define MIN 0;
+#define MAX 255
+#define MIN 0
 #define H_POWER 22
 #define MOTOR1_F 3
 #define MOTOR1_R 2
@@ -26,6 +27,8 @@
 // Structs:
 struct Motor
 {
+    /// @brief This struct is used to store the pins and direction of the motors.
+
     unsigned short forwardPin,
                    backwardPin,
                    speed;
@@ -44,6 +47,8 @@ void movement(float speed);
 
 void setup(void)
 {
+    /// @brief This function sets up the pins and the motors.
+
     // Assign the pins to the motors:
     MotorOne.forwardPin = MOTOR1_F;
     MotorOne.backwardPin = MOTOR1_R;
@@ -76,11 +81,16 @@ void loop(void)
 {
     float input = (PI / 2);
     direction(input);
-    movement(0.5f);
+    movement(1.0f);
+
+    delay(1000);
 }
 
 void direction(float radian)
 {   
+    /// @brief This function sets the direction of the motors.
+    /// @param radian The angle of the motors.
+
     // Set the direction of the motors:
     MotorOne.direction = (-cos(radian + ADDER));
     MotorTwo.direction = (sin(radian + ADDER));
@@ -90,6 +100,9 @@ void direction(float radian)
 
 void movement(float speed)
 {
+    /// @brief This function sets the speed and direction of the motors.
+    /// @param speed The speed of the motors.
+
     // Set the speed of the motors:
     MotorOne.speed = speed * MAX;
     MotorTwo.speed = speed * MAX;
@@ -99,66 +112,64 @@ void movement(float speed)
     // Set the pins to the correct direction:
     if (MotorOne.direction > 0)
     {
-        analogWrite(MotorOne.forwardPin, MotorOne.speed);
-        analogWrite(MotorOne.backwardPin, LOW);
+        analogWrite(MotorOne.forwardPin, (int) MotorOne.speed);
+        analogWrite(MotorOne.backwardPin, MIN);
     }
     else if (MotorTwo.direction > 0) 
     {
-        analogWrite(MotorTwo.forwardPin, MotorTwo.speed);
-        analogWrite(MotorTwo.backwardPin, LOW);
+        analogWrite(MotorTwo.forwardPin, (int) MotorTwo.speed);
+        analogWrite(MotorTwo.backwardPin, MIN);
     }
     else if (MotorThree.direction > 0)
     {
-        analogWrite(MotorThree.forwardPin, MotorThree.speed);
-        analogWrite(MotorThree.backwardPin, LOW);
+        analogWrite(MotorThree.forwardPin, (int) MotorThree.speed);
+        analogWrite(MotorThree.backwardPin, MIN);
     }
     else if (MotorFour.direction > 0)
     {
-        analogWrite(MotorFour.forwardPin, MotorFour.speed);
-        analogWrite(MotorFour.backwardPin, LOW);
+        analogWrite(MotorFour.forwardPin, (int) MotorFour.speed);
+        analogWrite(MotorFour.backwardPin, MIN);
     }
     else if (MotorOne.direction < 0)
     {
-        analogWrite(MotorOne.forwardPin, LOW);
-        analogWrite(MotorOne.backwardPin, MotorOne.speed);
+        analogWrite(MotorOne.forwardPin, MIN);
+        analogWrite(MotorOne.backwardPin, (int) MotorOne.speed);
     }
     else if (MotorTwo.direction < 0)
     {
-        analogWrite(MotorTwo.forwardPin, LOW);
-        analogWrite(MotorTwo.backwardPin, MotorTwo.speed);
+        analogWrite(MotorTwo.forwardPin, MIN);
+        analogWrite(MotorTwo.backwardPin, (int) MotorTwo.speed);
     }
     else if (MotorThree.direction < 0)
     {
-        analogWrite(MotorThree.forwardPin, LOW);
-        analogWrite(MotorThree.backwardPin, MotorThree.speed);
+        analogWrite(MotorThree.forwardPin,  MIN);
+        analogWrite(MotorThree.backwardPin, (int) MotorThree.speed);
     }
     else if (MotorFour.direction < 0)
     {
-        analogWrite(MotorFour.forwardPin, LOW);
-        analogWrite(MotorFour.backwardPin, MotorFour.speed);
+        analogWrite(MotorFour.forwardPin, MIN);
+        analogWrite(MotorFour.backwardPin, (int) MotorFour.speed);
     }
     else if (MotorOne.direction == 0)
     {
-        analogWrite(MotorOne.forwardPin, LOW);
-        analogWrite(MotorOne.backwardPin, LOW);
+        analogWrite(MotorOne.forwardPin, MIN);
+        analogWrite(MotorOne.backwardPin, MIN);
     }
     else if (MotorTwo.direction == 0)
     {
-        analogWrite(MotorTwo.forwardPin, LOW);
-        analogWrite(MotorTwo.backwardPin, LOW);
+        analogWrite(MotorTwo.forwardPin, MIN);
+        analogWrite(MotorTwo.backwardPin, MIN);
     }
     else if (MotorThree.direction == 0)
     {
-        analogWrite(MotorFour.forwardPin, LOW);
-        analogWrite(MotorFour.backwardPin, LOW);
+        analogWrite(MotorFour.forwardPin, MIN);
+        analogWrite(MotorFour.backwardPin, MIN);
     }
     else if (MotorFour.direction == 0)
     {
-        analogWrite(MotorFour.forwardPin, LOW);
-        analogWrite(MotorFour.backwardPin, LOW);
+        analogWrite(MotorFour.forwardPin, MIN);
+        analogWrite(MotorFour.backwardPin, MIN);
     }
     else 
-        // Why is there an error with Serial.println?
-
         Serial.println("Error: No direction for motors.\n");
 }

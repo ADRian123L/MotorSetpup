@@ -189,18 +189,18 @@ double motor_control(MotorAttribute motor_name) {
     if (motor_name.velocity > 0) {
 
       digitalWrite(motor_name.pin_1, HIGH);
-      digitalWrite(motor_name.pin_2, LOW);
+      digitalWrite(motor_name.pin_2, MIN);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
       return motor_name.power_supply;
     }
     else if (motor_name.velocity == 0) {
-      digitalWrite(motor_name.pin_1, LOW);
-      digitalWrite(motor_name.pin_2, LOW);
+      digitalWrite(motor_name.pin_1, MIN);
+      digitalWrite(motor_name.pin_2, MIN);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
       return motor_name.power_supply; 
     }
     else {
-      digitalWrite(motor_name.pin_1, LOW);
+      digitalWrite(motor_name.pin_1, MIN);
       digitalWrite(motor_name.pin_2, HIGH);
       analogWrite(motor_name.pin_pbw, motor_name.power_supply);
       return motor_name.power_supply;
