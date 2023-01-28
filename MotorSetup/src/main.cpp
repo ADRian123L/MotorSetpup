@@ -64,6 +64,10 @@ void setup(void)
     pinMode(MotorFour.forwardPin, OUTPUT);
     pinMode(MotorFour.backwardPin, OUTPUT);
 
+    // Turn on the power to H-bridge:
+    pinMode(H_POWER, OUTPUT);
+    digitalWrite(H_POWER, HIGH);
+
     // Communication:
     Serial.begin(9600);
 }
