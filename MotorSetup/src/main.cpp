@@ -42,7 +42,7 @@ struct Motor MotorOne,
 void direction(float radian);
 void movement(float speed);
 
-void setup()
+void setup(void)
 {
     // Assign the pins to the motors:
     MotorOne.forwardPin = MOTOR1_F;
@@ -68,7 +68,7 @@ void setup()
     Serial.begin(9600);
 }
 
-void loop()
+void loop(void)
 {
     float input = (PI / 2);
     direction(input);
