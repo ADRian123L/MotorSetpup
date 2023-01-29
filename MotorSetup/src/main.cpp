@@ -14,14 +14,14 @@
 #define MAX 255
 #define MIN 0
 #define H_POWER 22
-#define MOTOR1_F 3
-#define MOTOR1_R 2
-#define MOTOR2_F 5
-#define MOTOR2_R 4
-#define Motor3_F 7
-#define Motor3_B 6
-#define Motor4_F 9
-#define Motor4_B 8
+#define MOTOR1_F 2
+#define MOTOR1_R 3
+#define MOTOR2_F 4
+#define MOTOR2_R 5
+#define Motor3_F 6
+#define Motor3_B 7
+#define Motor4_F 8
+#define Motor4_B 9
 #define ADDER (float) (PI/4)
 
 // Structs:
@@ -81,9 +81,9 @@ void loop(void)
 {
     float input = (PI / 2);
     direction(input);
-    movement(1.0f);
+    movement(.4f);
 
-    delay(1000);
+    delay(99999);
 }
 
 void direction(float radian)
@@ -112,6 +112,7 @@ void movement(float speed)
     // Set the pins to the correct direction:
     if (MotorOne.direction > 0)
     {
+        Serial.println("Motor One Forward\n");
         analogWrite(MotorOne.forwardPin, (int) MotorOne.speed);
         analogWrite(MotorOne.backwardPin, MIN);
     }
