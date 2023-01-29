@@ -30,9 +30,9 @@ struct Motor
     /// @brief This struct is used to store the pins and direction of the motors.
 
     unsigned short forwardPin,
-                   backwardPin,
-                   speed;
-    float direction;
+                   backwardPin;
+                   
+    float direction, speed;
 };
 
 //Initialize the motors:
@@ -76,14 +76,39 @@ void setup(void)
     // Communication:
     Serial.begin(9600);
 }
-
+int i = 0;
+float k = 0;
 void loop(void)
-{
-    float input = (PI / 2);
+{   i++;
+    k = (float) i / 100.0;
+    float input = (k * PI * 2);
+    // Call the functions:
     direction(input);
-    movement(.4f);
+    movement(.05f);
+    if (i == 100)
+        i = 0;
+    delay(500);
 
-    delay(99999);
+    // Print the input and direction:
+    Serial.print("Input: ");
+    Serial.println(input);
+    // direcrion for each motor:
+    Serial.print("Motor One Direction: ");
+    Serial.println(MotorOne.direction);
+    Serial.print("Motor Two Direction: ");
+    Serial.println(MotorTwo.direction);
+    Serial.print("Motor Three Direction: ");
+    Serial.println(MotorThree.direction);
+    Serial.print("Motor Four Direction: ");
+    Serial.println(MotorFour.direction);
+    Serial.print("Speed of Motor 1: ");
+    Serial.println(MotorOne.speed);
+    Serial.print("Speed of Motor 2: ");
+    Serial.println(MotorTwo.speed);
+    Serial.print("Speed of Motor 3: ");
+    Serial.println(MotorThree.speed);
+    Serial.print("Speed of Motor 4: ");
+    Serial.println(MotorFour.speed);
 }
 
 void direction(float radian)
@@ -104,73 +129,76 @@ void movement(float speed)
     /// @param speed The speed of the motors.
 
     // Set the speed of the motors:
-    MotorOne.speed = speed * MAX;
-    MotorTwo.speed = speed * MAX;
-    MotorThree.speed = speed * MAX;
-    MotorFour.speed = speed * MAX;
+    MotorOne.speed = speed * MAX * MotorOne.direction;
+    MotorTwo.speed = speed * MAX * MotorTwo.direction;
+    MotorThree.speed = speed * MAX * MotorThree.direction;
+    MotorFour.speed = speed * MAX * MotorFour.direction;
     
     // Set the pins to the correct direction:
     if (MotorOne.direction > 0)
     {
-        Serial.println("Motor One Forward\n");
         analogWrite(MotorOne.forwardPin, (int) MotorOne.speed);
         analogWrite(MotorOne.backwardPin, MIN);
     }
-    else if (MotorTwo.direction > 0) 
+
+    if (MotorTwo.direction > 0) 
     {
         analogWrite(MotorTwo.forwardPin, (int) MotorTwo.speed);
         analogWrite(MotorTwo.backwardPin, MIN);
+        
     }
-    else if (MotorThree.direction > 0)
+    if (MotorThree.direction > 0)
     {
         analogWrite(MotorThree.forwardPin, (int) MotorThree.speed);
         analogWrite(MotorThree.backwardPin, MIN);
+        
     }
-    else if (MotorFour.direction > 0)
+    if (MotorFour.direction > 0)
     {
         analogWrite(MotorFour.forwardPin, (int) MotorFour.speed);
         analogWrite(MotorFour.backwardPin, MIN);
+       
     }
-    else if (MotorOne.direction < 0)
+    if (MotorOne.direction < 0)
     {
         analogWrite(MotorOne.forwardPin, MIN);
         analogWrite(MotorOne.backwardPin, (int) MotorOne.speed);
     }
-    else if (MotorTwo.direction < 0)
+    if (MotorTwo.direction < 0)
     {
         analogWrite(MotorTwo.forwardPin, MIN);
         analogWrite(MotorTwo.backwardPin, (int) MotorTwo.speed);
     }
-    else if (MotorThree.direction < 0)
+    if (MotorThree.direction < 0)
     {
         analogWrite(MotorThree.forwardPin,  MIN);
         analogWrite(MotorThree.backwardPin, (int) MotorThree.speed);
     }
-    else if (MotorFour.direction < 0)
+    if (MotorFour.direction < 0)
     {
         analogWrite(MotorFour.forwardPin, MIN);
         analogWrite(MotorFour.backwardPin, (int) MotorFour.speed);
     }
-    else if (MotorOne.direction == 0)
+    if (MotorOne.direction == 0)
     {
         analogWrite(MotorOne.forwardPin, MIN);
         analogWrite(MotorOne.backwardPin, MIN);
     }
-    else if (MotorTwo.direction == 0)
+    if (MotorTwo.direction == 0)
     {
         analogWrite(MotorTwo.forwardPin, MIN);
         analogWrite(MotorTwo.backwardPin, MIN);
     }
-    else if (MotorThree.direction == 0)
+    if (MotorThree.direction == 0)
     {
         analogWrite(MotorFour.forwardPin, MIN);
         analogWrite(MotorFour.backwardPin, MIN);
+        
     }
-    else if (MotorFour.direction == 0)
+    if (MotorFour.direction == 0)
     {
         analogWrite(MotorFour.forwardPin, MIN);
         analogWrite(MotorFour.backwardPin, MIN);
+        
     }
-    else 
-        Serial.println("Error: No direction for motors.\n");
 }
