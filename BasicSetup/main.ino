@@ -100,9 +100,6 @@ void loop(void)
         car_direction = 0;
         // Beep the beeper:
         
-       
-        
-        
         }
     // Set the direction of the motors:
     direction (car_direction);
@@ -113,7 +110,7 @@ void loop(void)
     // Output the direction and speed of the motors:
     movement(10 / 100.0); 
     // Delay:
- 
+
  
     delay(delay_var / number_sides);
   
