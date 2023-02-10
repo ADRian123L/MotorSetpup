@@ -1,6 +1,6 @@
 {
     "configuration": "cpu=atmega2560",
     "board": "arduino:avr:mega",
-    "sketch": "BasicSetup/main.ino",
-    "port": "/dev/tty.usbmodem1101"
+    "port": "/dev/tty.usbmodem101",
+    "sketch": "main/main.ino"
 }

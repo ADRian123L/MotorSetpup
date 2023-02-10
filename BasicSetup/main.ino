@@ -66,6 +66,7 @@ void setup(void)
     MotorFour.backwardPin = Motor4_B;
 
     // Set the pins to output:
+    pinMode(10, OUTPUT);
     pinMode(MotorOne.forwardPin, OUTPUT);
     pinMode(MotorOne.backwardPin, OUTPUT);
     pinMode(MotorTwo.forwardPin, OUTPUT);
@@ -81,20 +82,28 @@ void setup(void)
 
     // Communication:
     Serial.begin(115200);
-
 }
 float car_direction = 0;
 int i = 0;
 float k = 0;
 int counter = 0;
-int number_sides = 3;
-double delay_var = 1000.0;
+int number_sides = 20;
+double delay_var = 8000.0;
 
 void loop(void)
-{   
+{ 
+    /// @brief This function controls the speed and direction of the motors.
+
    // Check if the car has completed a full rotation:
     if (car_direction >= 2 * PI)
+        {
         car_direction = 0;
+        // Beep the beeper:
+        
+       
+        
+        
+        }
     // Set the direction of the motors:
     direction (car_direction);
     // Set the speed and direction of the motors:
@@ -102,9 +111,13 @@ void loop(void)
     // Check if the motors are at 0 speed:
     speed_check();
     // Output the direction and speed of the motors:
-    movement(20 / 100.0); 
+    movement(10 / 100.0); 
     // Delay:
+ 
+ 
     delay(delay_var / number_sides);
+  
+
     // Print the direction and speed of the motors:
     info();
 }
@@ -114,13 +127,13 @@ void speed_check(void)
     /// @brief This function checks if the motors are at 0 speed.
 
     if (MotorOne.speed <= 10 && MotorOne.speed >= -10)
-        delay_var *= 1.5;
+        delay_var *= 1;
     if (MotorTwo.speed <= 10 && MotorTwo.speed >= -10)
-        delay_var *= 1.5;
+        delay_var *= 1;
     if (MotorThree.speed <= 10 && MotorThree.speed >= -10)
-        delay_var *= 1.5;
+        delay_var *= 1;
     if (MotorFour.speed <= 10 && MotorFour.speed >= -10)
-        delay_var *= 1.5;
+        delay_var *= 1;
 }
 
 void info(void)
