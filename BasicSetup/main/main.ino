@@ -77,10 +77,12 @@ void setup(void)
     // Communication:
     Serial.begin(115200);
 
-    int car_direction = 0;
+    
 }
+float car_direction = 0;
 int i = 0;
 float k = 0;
+
 void loop(void)
 {   /*
     i++;
@@ -117,10 +119,10 @@ void loop(void)
 
 
     //Square movement
-    if (car_direction >= 2 * pi)
+    if (car_direction >= 2 * PI)
         car_direction = 0;
     direction (car_direction);
-    car_direction += pi / 2
+    car_direction += (PI / 2.0);
     movement(100);
     delay(500);
 

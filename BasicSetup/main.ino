@@ -5,6 +5,9 @@
         
 */
     /// @file main.cpp
+    /// @brief This file contains the main function of the program.
+    /// @author Adrian Lozada & Jiahui Dang
+
 #include <Arduino.h>
 #include <math.h>
 #include <stdio.h>
@@ -15,12 +18,12 @@
 #define H_POWER 22
 #define MOTOR1_F 2
 #define MOTOR1_R 3
-#define MOTOR2_F 4
-#define MOTOR2_R 5
+#define MOTOR2_F 5
+#define MOTOR2_R 4
 #define Motor3_F 6
 #define Motor3_B 7
-#define Motor4_F 8
-#define Motor4_B 9
+#define Motor4_F 9
+#define Motor4_B 8
 #define ADDER (float) (PI/4)
 
 // Structs:
@@ -45,6 +48,8 @@ struct Motor MotorOne,
 // Functions:
 void direction(float radian);
 void movement(float speed);
+void info(void);
+void speed_check(void);
 
 void setup(void)
 {
@@ -77,55 +82,70 @@ void setup(void)
     // Communication:
     Serial.begin(115200);
 
-    
 }
 float car_direction = 0;
 int i = 0;
 float k = 0;
+int counter = 0;
+int number_sides = 3;
+double delay_var = 1000.0;
 
 void loop(void)
-{   /*
-    i++;
-    k = (float) i / 100.0;
-    float input = (k * PI * 2);
-    // Call the functions:
-    direction(input);
-    movement(.05f);
-    if (i == 100)
-        i = 0;
-    delay(500);
-    */
-
-    // Print the input and direction:
-    // Serial.print("Input: ");
-    // Serial.println(input);
-    // Direction for each motor:
-    Serial.print("Motor One Direction: ");
-    Serial.println(MotorOne.angle);
-    Serial.print("Motor Two Direction: ");
-    Serial.println(MotorTwo.angle);
-    Serial.print("Motor Three Direction: ");
-    Serial.println(MotorThree.angle);
-    Serial.print("Motor Four Direction: ");
-    Serial.println(MotorFour.angle);
-    Serial.print("Speed of Motor 1: ");
-    Serial.println(MotorOne.speed);
-    Serial.print("Speed of Motor 2: ");
-    Serial.println(MotorTwo.speed);
-    Serial.print("Speed of Motor 3: ");
-    Serial.println(MotorThree.speed);
-    Serial.print("Speed of Motor 4: ");
-    Serial.println(MotorFour.speed);
-
-
-    //Square movement
+{   
+   // Check if the car has completed a full rotation:
     if (car_direction >= 2 * PI)
         car_direction = 0;
+    // Set the direction of the motors:
     direction (car_direction);
-    car_direction += (PI / 2.0)
-    movement(100);
-    delay(500);
+    // Set the speed and direction of the motors:
+    car_direction += (float) (2.0 * PI) / number_sides;
+    // Check if the motors are at 0 speed:
+    speed_check();
+    // Output the direction and speed of the motors:
+    movement(20 / 100.0); 
+    // Delay:
+    delay(delay_var / number_sides);
+    // Print the direction and speed of the motors:
+    info();
+}
 
+void speed_check(void)
+{
+    /// @brief This function checks if the motors are at 0 speed.
+
+    if (MotorOne.speed <= 10 && MotorOne.speed >= -10)
+        delay_var *= 1.5;
+    if (MotorTwo.speed <= 10 && MotorTwo.speed >= -10)
+        delay_var *= 1.5;
+    if (MotorThree.speed <= 10 && MotorThree.speed >= -10)
+        delay_var *= 1.5;
+    if (MotorFour.speed <= 10 && MotorFour.speed >= -10)
+        delay_var *= 1.5;
+}
+
+void info(void)
+{
+    /// @brief This function outputs the direction and speed of the motors.
+
+     // Output the direction of the motors:
+    Serial.print("MotorOne.angle: ");
+    Serial.println(MotorOne.angle);
+    Serial.print("MotorTwo.angle: ");
+    Serial.println(MotorTwo.angle);
+    Serial.print("MotorThree.angle: ");
+    Serial.println(MotorThree.angle);
+    Serial.print("MotorFour.angle: ");
+    Serial.println(MotorFour.angle);
+    Serial.println();
+    // Output the speed of the motors:
+    Serial.print("MotorOne.speed: ");
+    Serial.println(MotorOne.speed);
+    Serial.print("MotorTwo.speed: ");
+    Serial.println(MotorTwo.speed);
+    Serial.print("MotorThree.speed: ");
+    Serial.println(MotorThree.speed);
+    Serial.print("MotorFour.speed: ");
+    Serial.println(MotorFour.speed);
 }
 
 void direction(float radian)
@@ -153,53 +173,46 @@ void movement(float speed)
     
     // Set the pins to the correct direction:
     if (MotorOne.angle > 0)
-    {   for (int i; i < MotorOne.speed; i++)
-        {
-            analogWrite(MotorOne.forwardPin, (int) i);
-            analogWrite(MotorOne.backwardPin, MIN);
-            delay(100);
-        }
-        analogWrite(MotorOne.forwardPin, (int) MotorOne.speed);
+    {  
+        analogWrite(MotorOne.forwardPin, (int) abs(MotorOne.speed));
         analogWrite(MotorOne.backwardPin, MIN);
-        
     }
-
     if (MotorTwo.angle > 0) 
     {
-        analogWrite(MotorTwo.forwardPin, (int) MotorTwo.speed);
+        analogWrite(MotorTwo.forwardPin, (int) abs(MotorTwo.speed));
         analogWrite(MotorTwo.backwardPin, MIN);
         
     }
     if (MotorThree.angle > 0)
     {
-        analogWrite(MotorThree.forwardPin, (int) MotorThree.speed);
+        analogWrite(MotorThree.forwardPin, (int) abs(MotorThree.speed));
         analogWrite(MotorThree.backwardPin, MIN);
         
     }
     if (MotorFour.angle > 0)
     {
-        analogWrite(MotorFour.forwardPin, (int) MotorFour.speed);
+        analogWrite(MotorFour.forwardPin, (int) abs(MotorFour.speed));
         analogWrite(MotorFour.backwardPin, MIN);
     }
     if (MotorOne.angle < 0)
     {
         analogWrite(MotorOne.forwardPin, MIN);
-        analogWrite(MotorOne.backwardPin, (int) MotorOne.speed);
+        analogWrite(MotorOne.backwardPin, (int) abs(MotorOne.speed));
     }
     if (MotorTwo.angle < 0)
     {
         analogWrite(MotorTwo.forwardPin, MIN);
-        analogWrite(MotorTwo.backwardPin, (int) MotorTwo.speed);
+        analogWrite(MotorTwo.backwardPin, (int) abs(MotorTwo.speed));
     }
     if (MotorThree.angle < 0)
     {
         analogWrite(MotorThree.forwardPin,  MIN);
-        analogWrite(MotorThree.backwardPin, (int) MotorThree.speed);
+        analogWrite(MotorThree.backwardPin, (int) abs(MotorThree.speed));
     }
     if (MotorFour.angle < 0)
     {
         analogWrite(MotorFour.forwardPin, MIN);
-        analogWrite(MotorFour.backwardPin, (int) MotorFour.speed);
+        analogWrite(MotorFour.backwardPin, (int) abs(MotorFour.speed));
     }
     if (MotorOne.angle == 0)
     {
@@ -215,7 +228,6 @@ void movement(float speed)
     {
         analogWrite(MotorFour.forwardPin, MIN);
         analogWrite(MotorFour.backwardPin, MIN);
-        
     }
     if (MotorFour.angle == 0)
     {
