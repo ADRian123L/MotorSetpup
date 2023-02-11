@@ -108,7 +108,7 @@ void loop(void)
     // Check if the motors are at 0 speed:
     speed_check();
     // Output the direction and speed of the motors:
-    movement(10 / 100.0); 
+    movement(30 / 100.0); 
     // Delay:
 
  
@@ -124,13 +124,13 @@ void speed_check(void)
     /// @brief This function checks if the motors are at 0 speed.
 
     if (MotorOne.speed <= 10 && MotorOne.speed >= -10)
-        delay_var *= 1;
+        delay_var *= 1.3;
     if (MotorTwo.speed <= 10 && MotorTwo.speed >= -10)
-        delay_var *= 1;
+        delay_var *= 1.3;
     if (MotorThree.speed <= 10 && MotorThree.speed >= -10)
-        delay_var *= 1;
+        delay_var *= 1.3;
     if (MotorFour.speed <= 10 && MotorFour.speed >= -10)
-        delay_var *= 1;
+        delay_var *= 1.3;
 }
 
 void info(void)
